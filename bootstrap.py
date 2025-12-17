@@ -10,7 +10,7 @@ import yaml
 from src.infrastructure.config import ConfigManager
 from src.infrastructure.repositories import ScatterRepository, CategoryRepository
 from src.infrastructure.analysis import ScipyAnalyzer
-from src.infrastructure.visualization import MatplotlibVisualizer
+from src.infrastructure.visualization.matplotlib_visualizer import MatplotlibVisualizer
 from src.usecases.load_data import LoadDataUseCase
 from src.usecases.analyze import AnalyzeDataUseCase
 from src.usecases.save_image import SaveImageUseCase
