@@ -5,7 +5,10 @@ settings.toml を読み込み、アプリケーション設定を提供
 import logging
 from pathlib import Path
 from typing import Any, Dict
-import tomli
+try:
+    import tomllib as tomli
+except ModuleNotFoundError:
+    import tomli
 
 from src.core.exceptions import ConfigurationError
 
