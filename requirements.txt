@@ -1,0 +1,16 @@
+# Core dependencies
+pandas>=2.0.0
+numpy>=1.24.0
+scipy>=1.10.0
+matplotlib>=3.7.0
+
+# Configuration
+tomli>=2.0.0; python_version < '3.11'
+pyyaml>=6.0
+
+# GUI (built-in with Python)
+# tkinter - included in standard Python distribution
+
+# Testing (for later phases)
+pytest>=7.4.0
+pytest-cov>=4.1.0
