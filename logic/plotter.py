@@ -30,8 +30,9 @@ class ScatterPlotter:
             logging.warning(f"フォント設定失敗: {e}")
     
     def draw(self, ax, df: pd.DataFrame, x_col: str = 'X', y_col: str = 'Y',
-         category_col: str = None, show_regression: bool = True,
-         xlim: tuple = None, ylim: tuple = None, show_labels: bool = True):
+            category_col: str = None, show_regression: bool = True,
+            xlim: tuple = None, ylim: tuple = None, show_labels: bool = True,
+            label_col: str = None):
         """
         散布図を描画
     
@@ -45,46 +46,49 @@ class ScatterPlotter:
         xlim: X軸の範囲 (min, max)
         ylim: Y軸の範囲 (min, max)
         show_labels: 各点にラベルを表示するか
+        label_col: ラベルとして使用する列名（指定しない場合はインデックスを使用）
         """
         try:
             # 軸をクリア
             ax.clear()
-            
-            # カテゴリ別プロット
+        
+            # カテゴリ別に描画
             if category_col and category_col in df.columns:
                 self._draw_with_category(ax, df, x_col, y_col, category_col)
             else:
                 self._draw_simple(ax, df, x_col, y_col)
             
-            # 回帰線
+            # 回帰直線
             if show_regression:
                 self._draw_regression_line(ax, df, x_col, y_col)
             
-            # 軸設定
-            ax.set_xlabel(x_col, fontsize=12, fontweight='bold')
-            ax.set_ylabel(y_col, fontsize=12, fontweight='bold')
-            ax.grid(True, linestyle='--', alpha=0.3, color='gray')
-            
-            # 軸範囲設定
+            # 軸ラベル
+            ax.set_xlabel(x_col)
+            ax.set_ylabel(y_col)
+        
+            # 軸範囲の設定
             if xlim:
                 ax.set_xlim(xlim)
             if ylim:
                 ax.set_ylim(ylim)
 
             # 各点にラベルを表示
-            if show_labels and df.index.name:
-                for i, (x, y) in enumerate(zip(df[x_col], df[y_col])):
-                    ax.text(x, y, str(df.index[i]), 
+            if show_labels:
+                labels = df[label_col] if label_col and label_col in df.columns else df.index.astype(str)
+                for x, y, label in zip(df[x_col], df[y_col], labels):
+                    ax.text(x, y, str(label), 
                             fontsize=8, 
                             ha='center', 
                             va='bottom',
-                            bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', pad=1))     
+                            bbox=dict(facecolor='white', alpha=0.7, 
+                                     edgecolor='none', pad=1))
             
+        
             # レイアウト調整
             ax.figure.tight_layout()
-            
+        
             logging.info("散布図描画完了")
-            
+        
         except Exception as e:
             logging.error(f"散布図描画エラー: {e}", exc_info=True)
             raise
