@@ -30,20 +30,21 @@ class ScatterPlotter:
             logging.warning(f"フォント設定失敗: {e}")
     
     def draw(self, ax, df: pd.DataFrame, x_col: str = 'X', y_col: str = 'Y',
-             category_col: str = None, show_regression: bool = True,
-             xlim: tuple = None, ylim: tuple = None):
+         category_col: str = None, show_regression: bool = True,
+         xlim: tuple = None, ylim: tuple = None, show_labels: bool = True):
         """
         散布図を描画
-        
+    
         Args:
-            ax: Matplotlibの軸オブジェクト
-            df: データフレーム
-            x_col: X列の列名
-            y_col: Y列の列名
-            category_col: カテゴリ列の列名（オプション）
-            show_regression: 回帰線を表示するか
-            xlim: X軸の範囲 (min, max)
-            ylim: Y軸の範囲 (min, max)
+        ax: Matplotlibの軸オブジェクト
+        df: データフレーム
+        x_col: X列の列名
+        y_col: Y列の列名
+        category_col: カテゴリ列の列名（オプション）
+        show_regression: 回帰線を表示するか
+        xlim: X軸の範囲 (min, max)
+        ylim: Y軸の範囲 (min, max)
+        show_labels: 各点にラベルを表示するか
         """
         try:
             # 軸をクリア
@@ -69,6 +70,15 @@ class ScatterPlotter:
                 ax.set_xlim(xlim)
             if ylim:
                 ax.set_ylim(ylim)
+
+            # 各点にラベルを表示
+            if show_labels and df.index.name:
+                for i, (x, y) in enumerate(zip(df[x_col], df[y_col])):
+                    ax.text(x, y, str(df.index[i]), 
+                            fontsize=8, 
+                            ha='center', 
+                            va='bottom',
+                            bbox=dict(facecolor='white', alpha=0.7, edgecolor='none', pad=1))     
             
             # レイアウト調整
             ax.figure.tight_layout()
