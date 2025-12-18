@@ -7,6 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from datetime import datetime
 import logging
+from pathlib import Path
 
 from logic.data_loader import DataLoader
 from logic.analyzer import Analyzer
@@ -184,12 +185,18 @@ class MainWindow:
         
         # カテゴリ列を検出（X, Y以外の列）
         category_cols = [col for col in self.df.columns if col not in ['X', 'Y']]
-        self.category_combo['values'] = ["なし"] + category_cols
+        values = ["なし"] + category_cols
+        self.category_combo['values'] = values
         
-        if category_cols:
-            self.category_var.set(category_cols[0])
+        # 現在の選択が有効な値かを確認し、無効ならデフォルトを設定する
+        current_value = self.category_var.get() if getattr(self, "category_var", None) else None
+        if current_value in values:
+            self.category_var.set(current_value)
         else:
-            self.category_var.set("なし")
+            if category_cols:
+                self.category_var.set(category_cols[0])
+            else:
+                self.category_var.set("なし")
     
     def _update_plot(self):
         """散布図を更新"""
