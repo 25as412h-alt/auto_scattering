@@ -33,6 +33,11 @@ class ScatterPlotter:
             category_col: str = None, show_regression: bool = True,
             xlim: tuple = None, ylim: tuple = None, show_labels: bool = True,
             label_col: str = None):
+
+        # plotter.pyのdrawメソッドの先頭に追加
+        print("利用可能なカラム:", df.columns.tolist())
+        print(f"指定されたラベル列 '{label_col}' は存在するか:", label_col in df.columns)
+        print("先頭5行のラベルデータ:", df[label_col].head().tolist() if label_col in df.columns else "ラベル列が存在しません")
         """
         散布図を描画
     
@@ -81,8 +86,8 @@ class ScatterPlotter:
                             ha='center', 
                             va='bottom',
                             bbox=dict(facecolor='white', alpha=0.7, 
-                                     edgecolor='none', pad=1))
-            
+                                     edgecolor='none', pad=1),
+                            transform=ax.transData)
         
             # レイアウト調整
             ax.figure.tight_layout()

@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import logging
 from pathlib import Path
+import pandas as pd
 
 from logic.data_loader import DataLoader
 from logic.analyzer import Analyzer
@@ -199,6 +200,8 @@ class MainWindow:
                 self.category_var.set("なし")
     
     def _update_plot(self):
+        print("利用可能なカラム:", self.df.columns.tolist())
+        print("先頭データ:\n", self.df.head())
         """散布図を更新"""
         try:
             # データ再読み込み
@@ -221,7 +224,9 @@ class MainWindow:
                 category_col=category_col,
                 show_regression=self.show_regression.get(),
                 xlim=xlim,
-                ylim=ylim
+                ylim=ylim,
+                show_labels=True,  # ラベル表示を有効に
+                label_col='LABEL'  # ラベルに使用する列名（適切な列名に変更してください）
             )
             self.canvas.draw()
             
