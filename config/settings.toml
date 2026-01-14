@@ -1,0 +1,26 @@
+# Auto Scattering Application Configuration
+
+[paths]
+input_dir = "./data"
+output_dir = "./png"
+font_path = ""  # 空文字の場合は自動検出
+
+[data]
+encodings = ["utf-8", "cp932"]
+scatter_file = "scatter/scatter.csv"
+category_dir = "category"
+
+[plot]
+default_color = "blue"
+font_size = 12
+alpha = 0.7
+figure_size = [10, 8]
+grid_alpha = 0.3
+grid_style = "dotted"
+
+[ui]
+window_title = "Auto Scattering Ver 5.0"
+initial_geometry = "1200x800"
+
+[logging]
+level = "INFO"
