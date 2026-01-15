@@ -48,3 +48,5 @@ htmlcov/
 data/
 output/
 .app.log
+
+setup_guide.md
