@@ -21,6 +21,7 @@ AutoScattering/
 │   └── plotter.py         # 散布図描画
 │
 ├── data/
+│   ├── category.csv        # カテゴリデータ
 │   └── scatter.csv        # サンプルデータ
 │
 └── output/                # 画像出力先（自動作成）
@@ -33,7 +34,8 @@ AutoScattering/
 python --version  # Python 3.8以上が必要
 ```
 
-### 2. 依存ライブラリのインストール
+### 2. 依存ライブラリのインストール(必要な場合)
+※python main.pyで仮想環境を作成
 ```bash
 pip install -r requirements.txt
 ```
@@ -91,9 +93,9 @@ Sample2,15.2,25.8
 
 ### category.csv（オプション）
 ```csv
-Label,Category
-Sample1,GroupA
-Sample2,GroupB
+Label,Category1,Category2,...
+Sample1,GroupA,Group1,...
+Sample2,GroupB,Group2,..
 ```
 
 - `Label` 列でscatter.csvと結合
@@ -145,16 +147,6 @@ ax.scatter(..., color='#FF5722')  # オレンジ色
 ```python
 ax.set_xlabel(x_col, fontsize=14)  # 12 → 14
 ```
-
-## 📦 配布方法
-
-### EXE化（Windows）
-```bash
-pip install pyinstaller
-pyinstaller --onefile --windowed main.py
-```
-
-生成された `dist/main.exe` を配布できます。
 
 ## 🆘 サポート
 
