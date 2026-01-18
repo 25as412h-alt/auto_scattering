@@ -21,7 +21,7 @@ AutoScattering/
 │   └── plotter.py         # 散布図描画
 │
 ├── data/
-│   ├── category.csv        # カテゴリデータ
+│   ├── category.csv       # カテゴリデータ
 │   └── scatter.csv        # サンプルデータ
 │
 └── output/                # 画像出力先（自動作成）
